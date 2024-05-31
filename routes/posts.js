@@ -2,15 +2,36 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const Post = require('../models/Post');
+const path = require('path');
+const fs = require('fs');
 
 // Create a Post
 router.post('/', auth, async (req, res) => {
     const { title, content } = req.body;
+
     try {
+        let coverImage = null;
+
+        if (req.files && req.files.coverImage) {
+            const file = req.files.coverImage;
+            const uploadPath = path.join(__dirname, '..', 'uploads', file.name);
+
+            fs.mkdirSync(path.dirname(uploadPath), { recursive: true });
+
+            file.mv(uploadPath, err => {
+                if (err) {
+                    return res.status(500).send(err);
+                }
+            });
+
+            coverImage = `/uploads/${file.name}`;
+        }
+
         const newPost = new Post({
             user: req.user.id,
             title,
-            content
+            content,
+            coverImage
         });
 
         const post = await newPost.save();
