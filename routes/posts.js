@@ -7,7 +7,7 @@ const fs = require('fs');
 
 // Create a Post
 router.post('/', auth, async (req, res) => {
-    const { title, content } = req.body;
+    const { title, content, categories } = req.body;
 
     try {
         let coverImage = null;
@@ -31,6 +31,7 @@ router.post('/', auth, async (req, res) => {
             user: req.user.id,
             title,
             content,
+            categories,
             coverImage
         });
 

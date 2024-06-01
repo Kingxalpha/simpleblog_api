@@ -5,6 +5,9 @@ Register: POST /api/auth/register
 Login: POST /api/auth/login
 Get Profile: GET /api/auth/profile (Requires Authorization header with JWT token)
 Create Post: POST /api/posts (Requires Authorization header with JWT token)
+Create Profile: POST /api/profile (Requires Authorization header with JWT token)
+Update Profile: Put /api/profile (Requires Authorization header with JWT token)
+User Profile: GET /api/profile/me (Requires Authorization header with JWT token)
 Get All Posts: GET /api/posts
 Edit Post: PUT /api/posts/:id (Requires Authorization header with JWT token)
 Delete Post: DELETE /api/posts/:id (Requires Authorization header with JWT token)
