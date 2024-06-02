@@ -42,6 +42,26 @@ router.post('/', auth, async (req, res) => {
     }
 });
 
+// Create Post with Image Url
+router.post('/', auth, async (req, res) => {
+    const { title, content, categories, coverImage } = req.body;
+
+    try {
+        const newPost = new Post({
+            user: req.user.id,
+            title,
+            content,
+            categories,
+            coverImage
+        });
+
+        const post = await newPost.save();
+        res.json(post);
+    } catch (err) {
+        res.status(500).send('Server error');
+    }
+});
+
 // Get All Posts
 router.get('/', async (req, res) => {
     try {
