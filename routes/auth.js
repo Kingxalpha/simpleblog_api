@@ -60,7 +60,7 @@ router.get('/profile', auth, async (req, res) => {
     }
 });
 // Update password
-router.patch('/password/:id', async (req, res) => {
+router.patch('/password/:id', auth, async (req, res) => {
     const { currentPassword, newPassword } = req.body;
   
     try {
